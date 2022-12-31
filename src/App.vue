@@ -1,26 +1,37 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <v-app :theme="theme">
+        <!-- <v-navigation-drawer></v-navigation-drawer> -->
+        <NavBar />
+        <SidebarHover />
+
+        <Body />
+        <FooterBar />
+    </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { storeToRefs } from 'pinia'
+import { useThemeStore } from './stores/useThemeStore'
+import NavBar from './components/NavBar.vue'
+import SidebarHover from './components/SidebarHover.vue'
+import Body from './components/Body.vue'
+import FooterBar from './components/FooterBar.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    name: 'App',
+    components: {
+        NavBar,
+        SidebarHover,
+        Body,
+        FooterBar,
+    },
+    setup() {
+        const themeStore = useThemeStore()
+        const { theme } = storeToRefs(themeStore)
+
+        return {
+            theme,
+        }
+    },
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
